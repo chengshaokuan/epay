@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csk.epay.dao.OperationLogDao">
+    <insert id="save">
+	    insert into tbl_operationlog (
+	        ip,operator,time,module,type,node
+	    ) values (
+	    	 #{ip},#{operator}, #{time}, #{module}, #{type},#{node}
+	    )
+	    <selectKey keyProperty="id" resultType="int" order="AFTER">
+	    	select @@identity
+	    </selectKey>
+    </insert>
+</mapper>
