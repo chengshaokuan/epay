@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.csk.epay.service.UserRoleRelationService;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/userRoleRelation")
 public class UserRoleRelationController {
 	
@@ -20,6 +20,7 @@ public class UserRoleRelationController {
 	private UserRoleRelationService userRoleRelationService;
 	
 	@RequestMapping("/assign")
+	@ResponseBody
 	public Object assign(Integer userId,Integer[] roleIds){
 		//{"success":true} 成功  {"success":false} 失败
 		Map<String,Object> jsonMap = new HashMap<String,Object>();

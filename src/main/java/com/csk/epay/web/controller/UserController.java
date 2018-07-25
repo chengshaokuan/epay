@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,7 @@ import com.csk.epay.vo.PaginationVO;
 import com.csk.epay.vo.UserCondition;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 	
@@ -73,6 +74,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/save")
+	@ResponseBody
 	public Object save(User user){
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
 		try {
@@ -88,6 +90,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/getByPage")
+	@ResponseBody
 	public Object getByPage(UserCondition userCondition){
 		//{"total":100,"dataList":[{"id":"","accountNo":"","name":"","createTime":"","expireTime":"","allowIps":"","lockStatusText":""},{},{}]}
 		PaginationVO<User> paginationVO = userService.getByPage(userCondition);

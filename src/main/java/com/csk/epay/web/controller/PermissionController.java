@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 要求:方法的签名遵循如下格式
  * 		public ModelAndView 方法名(HttpServletRequest request,HttpServletRespose response) throws Exception{}
  */
-@RestController
+@Controller
 @RequestMapping("/permission")
 public class PermissionController{
 	
@@ -46,6 +46,7 @@ public class PermissionController{
 	}
 											
 	@RequestMapping(value="/makePermissionTree",produces="text/json;charset=UTF-8")
+	@ResponseBody
 	public Object makePermissionTree(String response) throws IOException{
 		return permissionService.getPermissionTree();
 	}
@@ -62,6 +63,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/delete")
+	@ResponseBody
 	public Object delete(Integer id){
 		//{"success":true }成功 	{"success":false}失败
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
@@ -82,6 +84,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/save")
+	@ResponseBody
 	public Object save(Permission permission){
 		//{"success":true,"data":{"id":"","name":"","pid":""}}成功		{"success":false} 失败
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
@@ -103,6 +106,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/update")
+	@ResponseBody
 	public Object update(Permission permission){
 		//{"success":true} 成功  {"success":false} 失败
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
@@ -118,6 +122,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/getByCode")
+	@ResponseBody
 	public Object getByCode(String code){
 		//{"success":true} 不重复  校验通过了		{"success":false} 重复 	校验没通过
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
@@ -132,6 +137,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/getByNameAndPid")
+	@ResponseBody
 	public Object getByNameAndPid(String name,Integer pid){
 		//{"success":true} 不重复 校验通过  {"success":false} 重复 校验没通过    
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
@@ -145,6 +151,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/makeCheckboxTree")
+	@ResponseBody
 	public Object makeCheckboxTree(Integer roleId){
 		//[{id:"000",pId:"0",name:"外汇局业务办公系统",open:true},{id:"7001",pId:"700",name:"公告管理"}]
 		List<Map<String,Object>> jsonList = permissionService.getCheckboxTree(roleId);
@@ -153,6 +160,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/makeDetailTree")
+	@ResponseBody
 	public Object makeDetailTree(Integer roleId){
 		//[{id:"000",pId:"0",name:"外汇局业务办公系统",open:true},{id:"7001",pId:"700",name:"公告管理"}]
 		List<Map<String,Object>> jsonList = permissionService.getDetailTree(roleId);
@@ -161,6 +169,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/makeFinalTree")
+	@ResponseBody
 	public Object makeFinalTree(Integer userId){
 		//[{id:"000",pId:"0",name:"外汇局业务办公系统",open:true},{id:"7001",pId:"700",name:"公告管理"}]
 		List<Map<String,Object>> jsonList = permissionService.getFinalTree(userId);
@@ -169,6 +178,7 @@ public class PermissionController{
 	}
 	
 	@RequestMapping("/makeMenuTree")
+	@ResponseBody
 	public Object makeMenuTree(Integer userId){
 		//[{id:"000",pId:"0",name:"外汇局业务办公系统",open:true},{id:"7001",pId:"700",name:"公告管理"}]
 		List<Map<String,Object>> jsonList = permissionService.getMenuTree(userId);

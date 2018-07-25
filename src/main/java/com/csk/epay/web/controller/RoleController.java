@@ -15,7 +15,7 @@ import com.csk.epay.service.RoleService;
 import com.csk.epay.utils.DateUtil;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/role")
 public class RoleController {
 	
@@ -56,6 +56,7 @@ public class RoleController {
 	}
 	
 	@RequestMapping("/save")
+	@ResponseBody
 	public Object save(Role role){
 		Map<String, Object> jsonMap = new HashMap<String,Object>();
 		role.setCreateTime(DateUtil.getSystemTime());
