@@ -10,10 +10,12 @@ import com.csk.epay.domain.User;
 import com.csk.epay.exceptions.ApplicationException;
 import com.csk.epay.service.UserService;
 import com.csk.epay.utils.MD5Util;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+@Controller
+@RequestMapping("main")
 public class MainController {
 
     @Resource(name = "userService")
@@ -30,6 +32,7 @@ public class MainController {
     }
 
     @RequestMapping("/login")
+    @ResponseBody
     public Object login (String accountNo, String password) {
         //{"success":true}成功  {"success":false,"errMsg":""} 失败
         Map<String, Object> jsonMap = new HashMap<String, Object>();

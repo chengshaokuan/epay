@@ -61,8 +61,8 @@
     </tx:advice>
 
     <!--&lt;!&ndash; AOP切入 &ndash;&gt;-->
-    <!--<aop:config>-->
-        <!--<aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.csk.epay.service.*.*(..))"/>-->
-    <!--</aop:config>-->
+    <aop:config>
+        <aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.csk.epay.service.*.*(..))"/>
+    </aop:config>
 </beans>
 

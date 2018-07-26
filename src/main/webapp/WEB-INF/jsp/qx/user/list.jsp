@@ -227,7 +227,7 @@
                                 		<option value="2">每页2条</option>
                                 		<option value="3">每页3条</option>
                                 		<option value="4">每页4条</option>
-                                		<option value="5">每页5条</option>                                		
+                                		<option value="5">每页5条</option>
                                 	</select>
                                 </td>
                                 <td class="font_left">

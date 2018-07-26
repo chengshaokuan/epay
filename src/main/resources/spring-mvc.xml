@@ -23,14 +23,20 @@
 	<!-- 注册mvc注解驱动 -->
 	<mvc:annotation-driven/>
 
+	<!-- 配置视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
 	<!-- 注册拦截器 -->
-	<!--<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*/*.do"/>
-			<mvc:exclude-mapping path="/main/login.do"/>
+			<mvc:exclude-mapping path="/*/*.do"/>
 			<bean class="com.csk.epay.web.AuthInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 </beans>
 
 

@@ -97,7 +97,7 @@
 						   		},
 						   		view: {
 						   			//禁止树节点多选
-						   			selectedMulti: false
+						   			selectedMulti: true
 						   		},
 						   		async: {
 						   			//开启异步加载模式
