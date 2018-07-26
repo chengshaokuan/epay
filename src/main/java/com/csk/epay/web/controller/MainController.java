@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import com.csk.epay.domain.Constant;
 import com.csk.epay.domain.User;
 import com.csk.epay.exceptions.ApplicationException;
 import com.csk.epay.service.UserService;
@@ -33,18 +35,18 @@ public class MainController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login (String accountNo, String password) {
+    public Object login (String accountNo, String password, HttpServletRequest request) {
         //{"success":true}成功  {"success":false,"errMsg":""} 失败
         Map<String, Object> jsonMap = new HashMap<String, Object>();
         try {
             User user = userService.login(accountNo, MD5Util.MD5(password));
 
             //如果认证成功,需要将用户信息放到session
-//			request.getSession().setAttribute(Constant.SESSION_USER, user);
+			request.getSession().setAttribute(Constant.SESSION_USER, user);
             //获取当前这个用户能够操作的所有urls
             Set<String> urls = userService.getUrlsByUserId(user.getId());
 
-//			request.getSession().setAttribute(Constant.URLS, urls);
+			request.getSession().setAttribute(Constant.URLS, urls);
             jsonMap.put("success", true);
         } catch (ApplicationException e) {
             jsonMap.put("success", false);

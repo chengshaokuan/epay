@@ -9,9 +9,6 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring-*.xml</param-value>
 	</context-param>
-	<listener>
-  		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
 	<!-- 配置spring监听器，该监听器在服务器启动阶段会被实例化，解析spring的配置文件；该监听器实现了ServletContextListener，监听ServletContext
 	对象，在ServletContext对象创建或者销毁的时候，监听器中的方法会被执行 -->
 	<listener>

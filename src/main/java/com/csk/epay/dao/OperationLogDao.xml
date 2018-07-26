@@ -4,6 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.csk.epay.dao.OperationLogDao">
+	<resultMap id="OperationLog" type="com.csk.epay.domain.OperationLog">
+		<id property="id" column="id"/>
+		<result property="ip" column="ip"/>
+		<result property="operator" column="operator"/>
+		<result property="time" column="time"/>
+		<result property="module" column="module"/>
+		<result property="type" column="type"/>
+		<result property="node" column="node"/>
+	</resultMap>
     <insert id="save">
 	    insert into tbl_operationlog (
 	        ip,operator,time,module,type,node
@@ -14,4 +23,29 @@
 	    	select @@identity
 	    </selectKey>
     </insert>
+
+	<delete id="deleteById">
+		delete from tbl_operationlog where id = #{id}
+	</delete>
+	
+	<select id="selectLog"  resultType="OperationLog">
+		select * from tbl_operationlog WHERE 1=1
+		<if test="startTime!=null and startTime!=''">
+			and expireTime &gt;=#{startTime}
+		</if>
+		<if test="endTime !=null and endTime !=''">
+			and expireTime &lt;=#{endTime}
+		</if>
+		limit #{pageNo},#{pageSize}
+	</select>
+
+	<select id="getTotal" resultType="long">
+		select count(*) from tbl_operationlog where 1=1
+		<if test="startTime!=null and startTime!=''">
+			and expireTime &gt;=#{startTime}
+		</if>
+		<if test="endTime !=null and endTime !=''">
+			and expireTime &lt;=#{endTime}
+		</if>
+	</select>
 </mapper>

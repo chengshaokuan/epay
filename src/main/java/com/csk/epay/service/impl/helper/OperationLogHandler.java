@@ -3,6 +3,8 @@ package com.csk.epay.service.impl.helper;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.csk.epay.domain.Role;
+import com.csk.epay.utils.StringUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,12 +19,13 @@ import com.csk.epay.domain.User;
 import com.csk.epay.service.OperationLogService;
 import com.csk.epay.utils.DateUtil;
 
+import java.util.HashMap;
+
 @Aspect //抽取独立性服务(记录操作日志的独立性服务，可复用，和业务流程没有关系，不管是什么应用记录日志都是这样记录的)
 @Component //纳入IOC容器管理，该对象的创建交给了IOC容器
 public class OperationLogHandler {
 
 	public OperationLogHandler() {
-		System.out.println("121231231");
 	}
 	@Resource(name="operationLogService")
 	private OperationLogService operationLogService;
@@ -48,7 +51,7 @@ public class OperationLogHandler {
 		ol.setIp(ip);
 		//操作员
 		User operator = ((User)request.getSession().getAttribute(Constant.SESSION_USER));
-		ol.setOperator(operator.getName());
+		ol.setOperator(StringUtil.isNotBlank(operator.getName())?operator.getName():"");
 		//操作时间
 		ol.setTime(DateUtil.getSystemTime());
 		//操作模块
@@ -65,7 +68,20 @@ public class OperationLogHandler {
 		//操作节点
 		String className = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
-		ol.setNode(className + "." + methodName + "()");
+		Object[] param = joinPoint.getArgs();
+		StringBuffer stringBuffer = new StringBuffer();
+		for (Object object:param) {
+			HashMap<Object, Object> map = new HashMap<>();
+			if(object instanceof Role){
+				 stringBuffer.append(((Role) object).getCode()+",");
+				 stringBuffer.append(((Role) object).getName()+",");
+				 stringBuffer.append(((Role) object).getRemark());
+			}
+			if(object instanceof User){
+
+			}
+		}
+		ol.setNode(className + "." + methodName + "("+stringBuffer+")");
 		//操作类型
 		if(methodName.startsWith("save")){
 			ol.setType("增加");

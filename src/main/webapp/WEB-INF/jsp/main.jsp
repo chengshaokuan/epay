@@ -97,7 +97,7 @@
 						   		},
 						   		view: {
 						   			//禁止树节点多选
-						   			selectedMulti: true
+						   			selectedMulti: false
 						   		},
 						   		async: {
 						   			//开启异步加载模式
@@ -106,13 +106,13 @@
 						   		}
 							};
                             var zNodes1 =[
-                                {id : "11",name:"权限管理",open:true},
+                                {id : "11",name:"权限管理", open:true},
                                 {id : "111",name : "许可维护",pId : "11",url : "${pageContext.request.contextPath}/permission/index.do",target : "navTab"},
                                 {id : "112",name : "角色维护",pId : "11",url : "${pageContext.request.contextPath}/role/index.do",target : "navTab"},
                                 {id : "113",name : "用户维护",pId : "11",url : "${pageContext.request.contextPath}/user/index.do",target : "navTab"},
                                 {id : "13",name : "操作记录管理",open:true},
-                                {id : "131",name : "操作记录查询",pId : "13"},
-                                {id : "132",name : "登录日志管理",pId : "13"},
+                                {id : "131",name : "操作记录查询",pId : "13",url : "${pageContext.request.contextPath}/log/index.do",target : "navTab"},
+                                {id : "132",name : "登录日志管理",pId : "13",url : "${pageContext.request.contextPath}/log/delete.do",target : "navTab"},
                                 {id : "133",name : "操作审计配置",pId : "13",open:true},
                                 {id : "1331",name : "详情",pId : "133"},
                                 {id : "1332",name : "修改",pId : "133"},

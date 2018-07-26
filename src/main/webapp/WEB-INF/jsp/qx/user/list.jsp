@@ -67,7 +67,7 @@
 				if(jsonObject.total==0){
 					$("#message").text("没有符合条件的记录");
 				}else{
-					$("#message").text("查询结果如下:");
+					/*$("#message").text("查询结果如下:");*/
 					var htmlString = "";
 					$.each(jsonObject.dataList,function(i,n){
 						htmlString +='<tr class="odd">';
@@ -111,6 +111,57 @@
 	function controlTheadCheckbox(){
 		$("#checkOrCancelAll").prop("checked",$(":checkbox[name='id']").length==$(":checkbox[name='id']:checked").length);
 	}
+
+    //删除用户
+    function del(){
+        //获取要删除的角色
+        var checkedElts = $(":checkbox[name='id']:checked");
+        if(checkedElts.length==0){
+            $("#message").text("请选择要删除的用户");
+        }else{
+            if(confirm("您确定要删除选中的用户吗?")){
+                //发送ajax请求,完成角色的删除    ids=			111&ids=222&ids=333
+
+                /* //拼接要删除的角色的ids的第一种方式
+                var sendData = "";
+                //对所有选中的checkbox进行遍历
+                $.each(checkedElts,function(i,n){
+                    sendData +="&ids="+n.value;
+                });
+                //sendData = sendData.substr(1);
+                sendData = sendData.substring(1); */
+
+                //拼接要删除的角色的ids的第二种方式
+                var sendData = "ids=";
+                var idArrays = [];
+                $.each(checkedElts,function(i,n){
+                    idArrays.push(n.value);
+                });
+                sendData += idArrays.join("&ids=");//join("&ids") 用"&ids"连接数组中的元素,形成一个新的字符串
+                alert(sendData);
+
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/user/delete.do",
+                    type:"post",
+                    data:sendData,
+                    beforeSend:function(){
+                        $("#message").text("正在删除用户请稍后...");
+                        return true;
+                    },
+                    success:function(jsonObject){
+                        //{"success":true} 成功 {"success":false} 失败
+                        if(jsonObject.success){
+                            $("#message").text("删除成功");
+                            //重新加载页面 	displayData(0);
+                            window.location.reload();
+                        }else{
+                            $("#message").text("删除失败");
+                        }
+                    }
+                });
+            }
+        }
+    }
 	
 	//跳转到分配角色页面前的校验
 	function assign(){
@@ -162,7 +213,7 @@
 									<a class="button" href="user/add.do"><span>新增</span></a>
 								</td>
 								<td width="50px">
-									<a class="button" href="javascript:void(0);"><span>删除</span></a>
+									<a class="button" href="javascript:void(0);"><span onclick="del();">删除</span></a>
 								</td>
 								<td width="50px">
 									<a class="button" href="user/edit.do"><span>修改</span></a>

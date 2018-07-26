@@ -34,6 +34,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void delete(Integer[] ids) {
+		for (Integer id : ids) {
+			userDao.deleteById(id);
+		}
+	}
+
+	@Override
 	public PaginationVO<User> getByPage(UserCondition userCondition) {
 		PaginationVO<User> paginationVO = new PaginationVO<User>();
 		userCondition.setPageNo((userCondition.getPageNo()-1)*userCondition.getPageSize()); 

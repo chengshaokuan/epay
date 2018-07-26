@@ -15,6 +15,15 @@ public interface UserService {
 	void save(User user);
 
 	/**
+	 * @Description: 删除用户
+	 * @param: ids
+	 * @return: void
+	 * @Author: Mr.Cheng
+	 * @Date: 10:16 2018/7/26
+	 */
+	void delete(Integer[] ids);
+
+	/**
 	 * 分页查询
 	 * @param userCondition
 	 * @return

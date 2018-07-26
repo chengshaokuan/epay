@@ -14,6 +14,12 @@ public interface UserDao {
 	void save(User user);
 
 	/**
+	 * 删除用户
+	 * @param
+	 */
+	void deleteById(Integer id);
+
+	/**
 	 * 获取总记录条数
 	 * @param userCondition
 	 * @return

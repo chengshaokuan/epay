@@ -72,12 +72,14 @@ public class RoleController {
 	
 	
 	@RequestMapping("/getByPage")
+	@ResponseBody
 	public Object getByPage(Integer pageNo,Integer pageSize){
 		//{"total":100,"dataList":[{"id":"","code":"","name":"","remark":""},{},{}]}
 		return roleService.getByPage(pageNo, pageSize);
 	}
 	
 	@RequestMapping("/delete")
+	@ResponseBody
 	public Object delete(Integer[] ids){
 		//{"success":true} 成功 {"success":false} 失败
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
@@ -93,6 +95,7 @@ public class RoleController {
 		return jsonMap;
 	}
 	@RequestMapping("/update")
+	@ResponseBody
 	public Object update(Role role){
 		Map<String,Object> jsonMap = new HashMap<String,Object>();
 		role.setEditTime(DateUtil.getSystemTime());

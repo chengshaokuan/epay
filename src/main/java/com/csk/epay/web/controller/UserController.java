@@ -52,6 +52,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/assign")
+	@ResponseBody
 	public String assign(Integer id,Model model){
 		//获取用户信息
 		User user = userService.getById(id);
@@ -87,6 +88,23 @@ public class UserController {
 			jsonMap.put("success", false);
 		}
 		return jsonMap; 
+	}
+
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Object delete(Integer[] ids){
+		//{"success":true} 成功 {"success":false} 失败
+		Map<String,Object> jsonMap = new HashMap<String,Object>();
+
+		try {
+			userService.delete(ids);
+			jsonMap.put("success", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			jsonMap.put("success", false);
+		}
+
+		return jsonMap;
 	}
 	
 	@RequestMapping("/getByPage")
