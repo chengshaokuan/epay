@@ -19,7 +19,6 @@ import com.csk.epay.utils.DateUtil;
 import com.csk.epay.utils.MD5Util;
 import com.csk.epay.vo.PaginationVO;
 import com.csk.epay.vo.UserCondition;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/user")
@@ -50,6 +49,8 @@ public class UserController {
 	public String edit(){
 		return "qx/user/edit";
 	}
+
+
 	
 	@RequestMapping("/assign")
 	@ResponseBody

@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.csk.epay.domain.User;
 import com.csk.epay.vo.UserCondition;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
 
 public interface UserDao {
 	
@@ -38,6 +43,18 @@ public interface UserDao {
 	 * @param id
 	 * @return
 	 */
+	@Select("select * from tbl_user where id = #{id}")
+    //如果其他查询语句，可以直接使用@ResultMap("a")来调用这个@Results
+    @Results(id = "a",value = {
+            @Result(column = "accountNo",property = "account_No"),
+            @Result(column = "id",property = "id")
+    })
+/*
+    @Results({
+            @Result(column = "accountNo",property = "account_No"),
+            @Result(column = "id",property = "id")
+    })
+*/
 	User getById(Integer id);
 
 	/**

@@ -20,7 +20,8 @@ public class OperationLogServiceImpl implements OperationLogService {
 	private OperationLogDao operationLogDao;
 
 
-	public void writeLog(OperationLog ol) {
+	@Override
+    public void writeLog(OperationLog ol) {
 		operationLogDao.save(ol);
 	}
 
@@ -32,6 +33,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 	}
 
 
+	@Override
 	public PaginationVO<OperationLog> selectLog(LogCondition logCondition) {
 		PaginationVO<OperationLog> paginationVO = new PaginationVO<OperationLog>();
 		logCondition.setPageNo((logCondition.getPageNo()-1)*logCondition.getPageSize());

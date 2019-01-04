@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,7 +48,7 @@ public class PermissionController{
 											
 	@RequestMapping(value="/makePermissionTree",produces="text/json;charset=UTF-8")
 	@ResponseBody
-	public Object makePermissionTree(String response) throws IOException{
+	public Object makePermissionTree(@RequestBody String response) throws IOException{
 		return permissionService.getPermissionTree();
 	}
 	

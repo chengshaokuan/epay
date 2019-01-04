@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<settings>
-		<!-- 解决插入的时候有空值的情况 -->
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-	<!-- 设置别名 -->
-	<typeAliases>
-		<package name="com.csk.epay.domain"/>
-	</typeAliases>	
+    <properties resource="jdbc.properties">
+        <!--<property name="username" value="root"/>
+        <property name="username" value="root"/>
+        <property name="username" value="root"/>-->
+        <!--<property name="jdbc.password" value="root"/>-->
+    </properties>
+    <!--<settings>
+        &lt;!&ndash; 解决插入的时候有空值的情况 &ndash;&gt;
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>-->
+    <!--设置别名-->
+    <typeAliases>
+        <package name="com.csk.epay.domain"/>
+    </typeAliases>
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--<mapper class="com.csk.epay.dao.PermissionDao"/>-->
+        <mapper resource="com/csk/epay/dao/mapper/PermissionDao.xml"/>
+        <mapper resource="com/csk/epay/dao/mapper/UserDao.xml"/>
+        <mapper resource="com/csk/epay/dao/mapper/RoleDao.xml"/>
+        <!--必须映射文件和接口在统一文件下-->
+        <!--<package name="com.csk.epay.dao"/>-->
+    </mappers>
 </configuration>

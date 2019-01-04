@@ -6,10 +6,6 @@ import com.csk.epay.vo.PaginationVO;
 
 public interface OperationLogService {
 
-	/**
-	 * 
-	 * @param ol
-	 */
 	void writeLog(OperationLog ol);
 
 	void delete(Integer[] ids);

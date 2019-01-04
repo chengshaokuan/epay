@@ -14,6 +14,9 @@ import com.csk.epay.dao.RolePermissionRelationDao;
 import com.csk.epay.domain.Permission;
 import com.csk.epay.service.PermissionService;
 
+/**
+ * @author STELLA
+ */
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
 

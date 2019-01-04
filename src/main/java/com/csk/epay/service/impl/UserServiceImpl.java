@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Resource(name="userDao")
 	private UserDao userDao;
-	
+
 	@Resource(name="permissionDao")
 	private PermissionDao permissionDao;
 	

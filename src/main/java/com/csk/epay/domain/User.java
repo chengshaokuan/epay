@@ -1,5 +1,8 @@
 package com.csk.epay.domain;
 
+import lombok.Data;
+
+@Data
 public class User {
 	
 	public static final Integer LOCK_CODE=2;
@@ -9,7 +12,7 @@ public class User {
 	
 	
 	private Integer id;
-	private String accountNo;
+	private String account_No;
 	private String name;
 	private String email;
 	private String password;
@@ -19,88 +22,5 @@ public class User {
 	private String createTime;
 	private String editTime;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getAccountNo() {
-		return accountNo;
-	}
-
-	public void setAccountNo(String accountNo) {
-		this.accountNo = accountNo;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getLockStatus() {
-		return lockStatus;
-	}
-	
-	public String getLockStatusText() {
-		return LOCK_CODE.equals(lockStatus)?LOCK_TEXT:UN_LOCK_TEXT;
-	}
-
-	public void setLockStatus(Integer lockStatus) {
-		this.lockStatus = lockStatus;
-	}
-
-	public String getExpireTime() {
-		return expireTime;
-	}
-
-	public void setExpireTime(String expireTime) {
-		this.expireTime = expireTime;
-	}
-
-	public String getAllowIps() {
-		return allowIps;
-	}
-
-	public void setAllowIps(String allowIps) {
-		this.allowIps = allowIps;
-	}
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getEditTime() {
-		return editTime;
-	}
-
-	public void setEditTime(String editTime) {
-		this.editTime = editTime;
-	}
 
 }
