@@ -67,4 +67,3 @@
         <aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.csk.epay.service.*.*(..))"/>
     </aop:config>
 </beans>
-

@@ -12,7 +12,7 @@ public class User {
 	
 	
 	private Integer id;
-	private String account_No;
+	private String accountNo;
 	private String name;
 	private String email;
 	private String password;

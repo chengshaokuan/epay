@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csk.epay.dao.annotation.PermissionDao">
+
+    <!-- resultMap最终还是要将结果映射到pojo上，type就是指定映射到哪一个pojo -->
+    <resultMap type="com.csk.epay.domain.Permission" id="permissionMap">
+        <!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="name" property="name"/>
+        <!-- property表示类中有一个对象属性(其对应类的属性名字)，
+         JavaType表示这个属性对应的实体类的类型 可以使类的全限定名也可是 别名
+             这属性值必须执行否则MyBatis无法创建这个类的实力对象-->
+        <!--<association property="role" javaType="com.csk.epay.domain.Role">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>-->
+        <!--
+                <association property="role" javaType="com.csk.epay.domain.Role">
+                    <id column="id" property="id"/>
+                    <result column="name" property="name"/>
+                </association>
+        -->
+       <!-- <collection property="childRole" ofType="com.csk.epay.domain.Role">
+            <id column="code" property="code"/>
+            <result column="id" property="id"/>
+            <result column="name" property="name"/>
+        </collection>-->
+    </resultMap>
+
+</mapper>

@@ -1,89 +1,84 @@
 package com.csk.epay.dao;
 
 import com.csk.epay.domain.Permission;
-import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 public interface PermissionDao {
 
     /**
-     * 保存许可
-     *
-     * @param permission
+     * @Description: 保存许可
+     * @param: permission
+     * @return: int
+     * @Author: Mr.Cheng
+     * @Date: 17:38 2019/1/7
      */
-   /* @Insert("<script>"+
-            "insert into tbl_permission(code,name,moduleUrl,operationUrl,order_no,create_time,pid) values " +
-            "<foreach collection='list' item='item' index='index' separator=','>" +
-            "(#{item.code},#{item.name},#{item.moduleUrl},#{item.operationUrl},#{item.orderNo},#{item.createTime},#{item.pid})" +
-            "</foreach>" +
-            "</script>")
-	  @Options(useGeneratedKeys = true)*/
-//	  @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", resultType = int.class, before = false)//可以将值插入到实体类
-//    @SelectKey(statement = "SELECT @@identity", keyProperty = "id", resultType = int.class, before = false)
+    int save (List<Permission> permission);
 
-
-//    @Insert("insert into tbl_permission(code,name,moduleUrl,operationUrl,order_no,create_time,pid) values (#{code},#{name},#{moduleUrl},#{operationUrl},#{orderNo},#{createTime},#{pid})")
-////	@Options(useGeneratedKeys = true)
-////	@SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", resultType = int.class, before = false)可以将值插入到实体类
-//    @SelectKey(statement = "SELECT @@identity", keyProperty = "id", resultType = int.class, before = false)
-     int save (List<Permission> permission);
     int save (Permission permission);
 
     /**
-     * 根据id删除许可
-     *
-     * @param id
+     * @Description: 根据id删除许可
+     * @param: id
+     * @return: void
+     * @Author: Mr.Cheng
+     * @Date: 17:38 2019/1/7
      */
     void deleteById (Integer id);
 
     /**
-     * 根据id获取许可对象
-     * @param id
-     * @return
+     * @Description: 根据id获取许可对象
+     * @param: id
+     * @return: com.csk.epay.domain.Permission
+     * @Author: Mr.Cheng
+     * @Date: 17:38 2019/1/7
      */
     Permission getById (Integer id);
 
     /**
-     * 修改许可
-     *
-     * @param permission
+     * @Description: 修改许可
+     * @param: permission
+     * @return: void
+     * @Author: Mr.Cheng
+     * @Date: 17:38 2019/1/7
      */
     void update (Permission permission);
 
     /**
-     * 获取所有许可
-     * @return
+     * @Description: 获取所有许可
+     * @param:
+     * @return: java.util.List<com.csk.epay.domain.Permission>
+     * @Author: Mr.Cheng
+     * @Date: 17:38 2019/1/7
      */
     List<Permission> getAll ();
 
+
     /**
-     * 根据许可代码获取许可对象
-     *
-     * @param code
-     * @return
+     * @Description: 根据许可代码获取许可对象
+     * @param: code
+     * @return: com.csk.epay.domain.Permission
+     * @Author: Mr.Cheng
+     * @Date: 14:28 2019/1/8
      */
-    @Select("select tr.* from tbl_permission tp,tbl_role tr where tp.code = tr.code and tp.code = #{code}")
-    @ResultMap("com.csk.epay.dao.PermissionDao.permissionMap")
-    List<Permission> getByCode1 (String code);
-
-
     Permission getByCode (String code);
 
     /**
-     * 根据许可名称和父许可id获取许可对象
-     *
-     * @param name
-     * @param pid
-     * @return
+     * @Description: 根据许可名称和父许可id获取许可对象
+     * @param: name
+     * @param: pid
+     * @return: com.csk.epay.domain.Permission
+     * @Author: Mr.Cheng
+     * @Date: 17:39 2019/1/7
      */
     Permission getByNameAndPid (String name, Integer pid);
 
     /**
-     * 根据用户id获取当前用户拥有的所有许可
-     *
-     * @param userId
-     * @return
+     * @Description: 根据用户id获取当前用户拥有的所有许可
+     * @param: userId
+     * @return: java.util.List<com.csk.epay.domain.Permission>
+     * @Author: Mr.Cheng
+     * @Date: 17:39 2019/1/7
      */
     List<Permission> getPermissionsByUserId (Integer userId);
 

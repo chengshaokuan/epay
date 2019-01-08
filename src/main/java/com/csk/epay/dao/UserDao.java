@@ -43,18 +43,6 @@ public interface UserDao {
 	 * @param id
 	 * @return
 	 */
-	@Select("select * from tbl_user where id = #{id}")
-    //如果其他查询语句，可以直接使用@ResultMap("a")来调用这个@Results
-    @Results(id = "a",value = {
-            @Result(column = "accountNo",property = "account_No"),
-            @Result(column = "id",property = "id")
-    })
-/*
-    @Results({
-            @Result(column = "accountNo",property = "account_No"),
-            @Result(column = "id",property = "id")
-    })
-*/
 	User getById(Integer id);
 
 	/**

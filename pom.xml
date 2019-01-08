@@ -9,7 +9,6 @@
     <version>1.0</version>
 
 
-
     <dependencies>
         <!-- Servlet&jsp常用三个依赖 -->
         <!-- servlet -->
@@ -64,6 +63,7 @@
             <version>4.2.1.RELEASE</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -82,6 +82,12 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>2.7.6</version>
+        </dependency>
+        <!--druid连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.28</version>
         </dependency>
 
         <!-- mysql驱动 -->
@@ -105,6 +111,11 @@
             <version>3.3.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.11.3.RELEASE</version>
+        </dependency>
         <!-- 日志处理 -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -117,6 +128,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
         </dependency>
 
         <!--jsckson插件 -->
@@ -135,6 +156,23 @@
             <artifactId>jackson-core</artifactId>
             <version>2.5.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.24</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

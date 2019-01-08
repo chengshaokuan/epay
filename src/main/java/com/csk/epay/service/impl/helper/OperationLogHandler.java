@@ -21,9 +21,7 @@ import com.csk.epay.utils.DateUtil;
 
 import java.util.HashMap;
 
-/**
- * @author STELLA
- */
+
 @Aspect //抽取独立性服务(记录操作日志的独立性服务，可复用，和业务流程没有关系，不管是什么应用记录日志都是这样记录的)
 @Component //纳入IOC容器管理，该对象的创建交给了IOC容器
 public class OperationLogHandler {
