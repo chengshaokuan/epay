@@ -62,7 +62,7 @@
         </tx:attributes>
     </tx:advice>
 
-    <!--&lt;!&ndash; AOP切入 &ndash;&gt;-->
+    <!-- AOP切入 -->
     <aop:config>
         <aop:advisor advice-ref="transactionAdvice" pointcut="execution(* com.csk.epay.service.*.*(..))"/>
     </aop:config>
