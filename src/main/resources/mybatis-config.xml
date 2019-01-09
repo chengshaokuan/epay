@@ -12,12 +12,13 @@
     <settings>
         <!-- 解决插入的时候有空值的情况 -->
         <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="cacheEnabled" value="true"/>
     </settings>
     <!--设置别名-->
     <typeAliases>
         <package name="com.csk.epay.domain"/>
     </typeAliases>
-    <!--<environments default="mysql">
+    <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
@@ -33,7 +34,7 @@
         <mapper resource="com/csk/epay/dao/mapper/PermissionDao.xml"/>
         <mapper resource="com/csk/epay/dao/mapper/UserDao.xml"/>
         <mapper resource="com/csk/epay/dao/mapper/RoleDao.xml"/>
-        &lt;!&ndash;必须映射文件和接口在统一文件下&ndash;&gt;
-        &lt;!&ndash;<package name="com.csk.epay.dao"/>&ndash;&gt;
-    </mappers>-->
+        <!--必须映射文件和接口在统一文件下-->
+        <!--<package name="com.csk.epay.dao"/>-->
+    </mappers>
 </configuration>

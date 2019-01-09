@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--debug:当此属性设置为true时,将打印出logback内部日志信息,实时查看logback运行状态。默认值为false。-->
+
+    <!-- 定义变量，可以使“${}”来使用变量 -->
+    <property name="LOG_HOME" value="../log2"/>
+
+    <!-- 定义时间戳 -->
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+    <contextName>${bySecond}</contextName>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--格式化输出:%d表示日期,%thread表示线程名,%-5level:级别从左显示5个字符宽度,%msg:日志消息,%n是换行符-->
+            <pattern>
+                [%-5level]|[%date{yyyy-MM-dd HH:mm:ss}] %logger{96}[%line][%thread]- %msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <target>
+            System.err
+        </target>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <!-- 记录到文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/testFile.LogConfig</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 滚动记录文件 -->
+    <appender name="RollingFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>
+                [%-5level][%date{yyyy-MM-dd HH:mm:ss}] %logger{96}[%line][%thread]- %msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily 配置日志所生成的目录以及生成文件名的规则 -->
+            <fileNamePattern>${LOG_HOME}/log_%d{yyyyMMdd}.%i.LogConfig</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <prudent>false</prudent>
+    </appender>
+
+    <!-- 日志输出级别,这个需要放到最下面，不然可能引用不到 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="RollingFILE"/>
+    </root>
+</configuration>

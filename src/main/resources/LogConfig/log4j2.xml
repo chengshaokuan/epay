@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="600">
+<!-- status用于设置log4j2自身内部的信息输出，可以不设置，输出信息显示大等于WARN。 -->
+	<Appenders>
+		<Console name="Console" target="SYSTEM_ERR">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+			<ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %l - %msg%n" />
+		</Console>
+		<!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用-->
+		<File name="LogConfig" fileName="LogConfig/test.LogConfig" append="false">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+		</File>
+		<RollingFile name="debugFile" fileName="${LogConfig.dir}debug.LogConfig"
+			immediateFlush="false"
+			filePattern="${LogConfig.dir}$${date:yyyy-MM}/debug-%d{MM-dd-yyyy}-%i.LogConfig.gz">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+				<ThresholdFilter level="INFO" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+					onMismatch="NEUTRAL" />
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="infoFile" fileName="${LogConfig.dir}info.LogConfig"
+			immediateFlush="false"
+			filePattern="${LogConfig.dir}$${date:yyyy-MM}/info-%d{MM-dd-yyyy}-%i.LogConfig.gz">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="INFO" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="errorFile" fileName="${LogConfig.dir}error.LogConfig"
+			immediateFlush="false"
+			filePattern="${LogConfig.dir}$${date:yyyy-MM}/error-%d{MM-dd-yyyy}-%i.LogConfig.gz">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="custFile" fileName="${LogConfig.dir}percust.LogConfig"
+			filePattern="${LogConfig.dir}$${date:yyyy-MM}/percust-%d{MM-dd-yyyy}-%i.LogConfig.gz">
+			<Filters>
+				<ThresholdFilter level="WARN" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="INFO" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200 MB" />
+			</Policies>
+		</RollingFile>
+	</Appenders>ERR
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="debugFile" />
+			<AppenderRef ref="infoFile" />
+			<AppenderRef ref="errorFile" />
+		</Root>
+	</Loggers>
+</Configuration>

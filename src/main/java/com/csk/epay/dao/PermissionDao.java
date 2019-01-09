@@ -1,6 +1,7 @@
 package com.csk.epay.dao;
 
 import com.csk.epay.domain.Permission;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -61,7 +62,7 @@ public interface PermissionDao {
      * @Author: Mr.Cheng
      * @Date: 14:28 2019/1/8
      */
-    Permission getByCode (String code);
+    Permission getByCode (@Param("code") String code);
 
     /**
      * @Description: 根据许可名称和父许可id获取许可对象
