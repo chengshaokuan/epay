@@ -1,9 +1,10 @@
 package com.csk.epay.domain;
 
+import com.csk.epay.entity.AbstractShardingTable;
 import lombok.Data;
 
 @Data
-public class User {
+public class User extends AbstractShardingTable{
 	
 	public static final Integer LOCK_CODE=2;
 	public static final Integer UN_LOCK_CODE=1;
@@ -11,7 +12,7 @@ public class User {
 	public static final String UN_LOCK_TEXT="启用";
 	
 	
-	private Integer id;
+	private String id;
 	private String accountNo;
 	private String name;
 	private String email;

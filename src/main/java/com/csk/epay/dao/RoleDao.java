@@ -3,6 +3,7 @@ package com.csk.epay.dao;
 import java.util.List;
 
 import com.csk.epay.domain.Role;
+import org.apache.ibatis.annotations.Param;
 
 public interface RoleDao {
 	
@@ -10,8 +11,10 @@ public interface RoleDao {
 	 * 保存角色
 	 * @param role
 	 */
+	void save(List<Role> role);
+
 	void save(Role role);
-	
+
 	/**
 	 * 根据角色id删除角色
 	 * @param id
@@ -44,4 +47,9 @@ public interface RoleDao {
 	 * @return
 	 */
 	List<Role> getRolesByPage(Integer pageNo,Integer pageSize);
+
+
+	List<Role> getRolesByCode(@Param("name") String code);
+
+
 }

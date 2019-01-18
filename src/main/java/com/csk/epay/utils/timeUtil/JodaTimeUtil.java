@@ -403,6 +403,7 @@ public class JodaTimeUtil {
      * @Date: 16:16 2018/8/15
      */
     public static long timestamp () {
+        //long currentTimeMillis = System.currentTimeMillis();
         DateTime dateTime = new DateTime();
         long millis = dateTime.getMillis();
         return millis;

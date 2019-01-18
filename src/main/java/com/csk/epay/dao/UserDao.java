@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.csk.epay.domain.User;
 import com.csk.epay.vo.UserCondition;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -16,13 +17,15 @@ public interface UserDao {
 	 * 保存用户
 	 * @param user
 	 */
-	void save(User user);
+	void save(@Param("tableNum") int tableNum,@Param("user") User user);
+
+	List<User> getUser(@Param("tableNum") int tableNum,@Param("id") String id);
 
 	/**
 	 * 删除用户
 	 * @param
 	 */
-	void deleteById(Integer id);
+	void deleteById(@Param("table") int table,@Param("id") Integer id);
 
 	/**
 	 * 获取总记录条数

@@ -21,22 +21,22 @@
 	<context:component-scan base-package="com.csk.epay.*"/>
 	
 	<!-- 注册mvc注解驱动 -->
-	<!--<mvc:annotation-driven/>
+	<mvc:annotation-driven/>
 
-	&lt;!&ndash; 配置视图解析器 &ndash;&gt;
+	<!-- 配置视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
-	&lt;!&ndash; 注册拦截器 &ndash;&gt;
+	<!-- 注册拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*/*.do"/>
 			<mvc:exclude-mapping path="/*/*.do"/>
 			<bean class="com.csk.epay.web.AuthInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 
 </beans>
 

@@ -22,12 +22,38 @@
     <!-- 引入外部的配置文件，读取数据库配置信息 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
+    <!-- 所有的数据源 -->
+    <bean id="dynamicDataSource" class="com.csk.epay.sharding.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="dataSource0" value-ref="dataSource"/>
+                <entry key="dataSource1" value-ref="dataSource1"/>
+                <entry key="dataSource2" value-ref="dataSource2"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSource"/>
+    </bean>
+
     <!-- 数据源  HikariCP -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!-- 数据源  HikariCP -->
+    <bean id="dataSource1" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="driverClassName" value="${jdbc1.driver}"/>
+        <property name="jdbcUrl" value="${jdbc1.url}"/>
+        <property name="username" value="${jdbc1.user}"/>
+        <property name="password" value="${jdbc1.password}"/>
+    </bean>
+    <!-- 数据源  HikariCP -->
+    <bean id="dataSource2" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="driverClassName" value="${jdbc2.driver}"/>
+        <property name="jdbcUrl" value="${jdbc2.url}"/>
+        <property name="username" value="${jdbc2.user}"/>
+        <property name="password" value="${jdbc2.password}"/>
     </bean>
 
     <!-- sessionFactory -->
