@@ -1,6 +1,7 @@
 package com.csk.epay.utils.timeUtil;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1191,6 +1192,40 @@ public abstract class TimeUtil {
         return days;
     }
 
+    /**
+     * @Description: 根据日期获得星期
+     * @param: date
+     * @return: java.lang.String
+     * @Author: Mr.Cheng
+     * @Date: 14:24 2018/8/15
+     */
+    public static String getWeekOfDateStr (Date date) {
+        String[] weekDaysName = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        String[] weekDaysCode = {"0", "1", "2", "3", "4", "5", "6"};
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int intWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        return weekDaysName[intWeek];
+        // return weekDaysCode[intWeek];
+    }
+
+    /**
+     * @Description:
+     * @param: date
+     * @param: formatStr
+     * @return: java.lang.String
+     * @Author: Mr.Cheng
+     * @Date: 16:02 2018/8/15
+     */
+    public static String dateToStr (Date date, String formatStr) {
+        if (date == null) {
+            return StringUtils.EMPTY;
+        }
+        DateTime dateTime = new DateTime(date);
+        return dateTime.toString(formatStr);
+    }
+
+
     public static void main (String[] args) throws ParseException {
 //        for (int i = 1; i < 3000; i++) {
 //            if (i % 2 == 1) {
@@ -1199,9 +1234,9 @@ public abstract class TimeUtil {
 //                System.out.println("B");
 //            }
 //        }
-            String str = "ch en  g ";
-            String trim = str.trim();
-            System.out.println(trim);
+        Date date = TimeUtil.convertAsDate("2019/1/2 1:1:1");
+        System.out.println(date);
+
 
     }
 
