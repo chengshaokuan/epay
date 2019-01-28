@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csk.epay.dao.UserDao">
+    <!-- <insert id="save"  >
+         insert into tbl_user_${sharding_table_index}(id,accountNo,name,email,password,lockStatus,expireTime,allowIps,createTime)
+         values
+         <foreach collection="list" index="index" item="it" separator=",">
+             (#{it.id},#{it.accountNo},#{it.name},#{it.email},#{it.password},#{it.lockStatus},#{it.expireTime},#{it.allowIps},#{it.createTime})
+         </foreach>
+     </insert>-->
+    <insert id="save">
+        insert into
+        tbl_user_${tableNum}(id,accountNo,name,email,password,lockStatus,expireTime,allowIps,createTime)
+        values
+        (#{user.id},#{user.accountNo},#{user.name},#{user.email},#{user.password},
+        #{user.lockStatus},#{user.expireTime},#{user.allowIps},#{user.createTime})
+
+        <!-- <selectKey keyProperty="id" order="AFTER" resultType="int">
+             select @@identity
+         </selectKey>-->
+    </insert>
+
+    <select id="getUser" resultType="User">
+        select * from tbl_user_${tableNum}
+        where id = #{id}
+    </select>
+
+
+    <delete id="deleteById">
+		delete from tbl_user_${tableNum} where id = #{id}
+	</delete>
+
+    <select id="getUsersByPage" resultType="User">
+        select * from tbl_user where accountNo!='admin'
+        <if test="userName!=null and userName !=''">
+            and name like #{userName} '%'
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and expireTime &gt;=#{startTime}
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and expireTime &lt;=#{endTime}
+        </if>
+        <if test="lockStatus!=0">
+            and lockStatus = #{lockStatus}
+        </if>
+        limit #{pageNo},#{pageSize}
+    </select>
+
+    <select id="getTotal" resultType="long">
+        select count(*) from tbl_user where accountNo!='admin'
+        <if test="userName!=null and userName !=''">
+            and name like #{userName} '%'
+        </if>
+        <if test="startTime!=null and startTime!=''">
+            and expireTime &gt;=#{startTime}
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and expireTime &lt;=#{endTime}
+        </if>
+        <if test="lockStatus!=0">
+            and lockStatus = #{lockStatus}
+        </if>
+    </select>
+
+    <!--<select id="getById" resultType="User">
+        select * from tbl_user where id = #{id}
+    </select>-->
+
+    <select id="getByAccountNoAndPassword" resultType="User">
+		select * from tbl_user where accountNo = #{0} and password = #{1}
+	</select>
+
+    <select id="getByUser" resultType="User">
+        select * from tbl_user
+        <where>
+            accoutNo IN
+            <!-- collection 表要迭代的数据 list 表示参数为List集合 如果数组 需要改为 array
+                item 被迭代的当前元素对象, 如果这个元素是一个实体类 那么使用使用 #{item值.属性}
+                open  表示在循环之前输出一个什么符号 通常 (
+                close 表示循环结束之后要输出一个什么符号 通常)
+                separator  表示多个元素值之间用什么符号分隔  通常 ,
+            -->
+            <foreach collection="list" item="accoutNo" open="(" close=")" separator=",">
+                #{accoutNo}
+            </foreach>
+        </where>
+    </select>
+</mapper>

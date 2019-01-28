@@ -11,8 +11,6 @@ public interface RoleDao {
 	 * 保存角色
 	 * @param role
 	 */
-	void save(List<Role> role);
-
 	void save(Role role);
 
 	/**

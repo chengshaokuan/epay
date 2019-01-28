@@ -1,6 +1,7 @@
 package com.csk.epay.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.csk.epay.domain.User;
 import com.csk.epay.vo.UserCondition;
@@ -20,6 +21,7 @@ public interface UserDao {
 	void save(@Param("tableNum") int tableNum,@Param("user") User user);
 
 	List<User> getUser(@Param("tableNum") int tableNum,@Param("id") String id);
+
 
 	/**
 	 * 删除用户

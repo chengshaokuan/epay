@@ -14,8 +14,6 @@ public interface PermissionDao {
      * @Author: Mr.Cheng
      * @Date: 17:38 2019/1/7
      */
-    int save (List<Permission> permission);
-
     int save (Permission permission);
 
     /**

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csk.epay.dao.PermissionDao">
+    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
+    <resultMap type="Permission" id="permissionMap">
+        <id column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="name" property="name"/>
+        <!-- property表示类中有一个对象属性(其对应类的属性名字)，
+         JavaType表示这个属性对应的实体类的类型 可以使类的全限定名也可是 别名
+             这属性值必须执行否则MyBatis无法创建这个类的实力对象-->
+        <!--<association property="role" javaType="com.csk.epay.domain.Role">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>-->
+        <!--
+                <association property="role" javaType="com.csk.epay.domain.Role">
+                    <id column="id" property="id"/>
+                    <result column="name" property="name"/>
+                </association>
+        -->
+        <!--<collection property="childRole" ofType="com.csk.epay.domain.Role">
+            <id column="code" property="code"/>
+            <result column="id" property="id"/>
+            <result column="name" property="name"/>
+        </collection>-->
+    </resultMap>
+
+    <!--<insert id="save" parameterType="com.csk.epay.domain.Permission">
+        <selectKey keyProperty="id"  keyColumn="id" order="AFTER" resultType="java.lang.Integer">
+            /*SELECT LAST_INSERT_ID()*/
+            select @@identity AS id
+        </selectKey>
+        insert into
+        tbl_permission
+        (code,name,moduleUrl,operationUrl,orderNo,createTime,pid)
+        values(#{code},#{name},#{moduleUrl},#{operationUrl},#{orderNo},#{createTime},#{pid})
+
+    </insert>-->
+    <!--批量插入-->
+    <!-- <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+         insert into
+         tbl_permission
+         (code,name,moduleUrl,operationUrl,orderNo,createTime,pid)
+         values
+         <foreach collection="list" item="item" index="index" separator=",">
+             (#{item.code},#{item.name},#{item.moduleUrl},#{item.operationUrl},#{item.orderNo},#{item.createTime},#{item.pid})
+         </foreach>
+     </insert>-->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+          insert into tbl_permission(code,name,moduleUrl,operationUrl,orderNo,createTime,pid)
+          values(#{code},#{name},#{moduleUrl},#{operationUrl},#{orderNo},#{createTime},#{pid})
+      </insert>
+
+    <delete id="deleteById">
+        delete from tbl_permission where 1=1
+        <if test="id!=null">
+            id = #{id}
+        </if>
+    </delete>
+
+    <update id="update">
+		update
+			tbl_permission
+		set
+			code = #{code},
+			name = #{name},
+			moduleUrl = #{moduleUrl},
+			operationUrl = #{operationUrl},
+			orderNo = #{orderNo},
+			editTime = #{editTime}
+		where
+			id = #{id}
+	</update>
+
+    <select id="getAll" resultType="Permission">
+		select * from tbl_permission order by orderNo
+	</select>
+
+    <select id="getById" resultType="Permission" useCache="true">
+        select * from tbl_permission where id=#{id}
+    </select>
+
+    <select id="getByCode" resultType="Permission">
+        select * from tbl_permission where code = #{code}
+        <!-- 如果 参数对象不是实体类 而是一个Map集合 那么name 为map集合中key  #{name} 为map集合中key -->
+        <!-- 由于 < 小于号被MyBatis征用 作为标签开始符号 因此 在编写语句时不能直接 使用 可以使用  > 进行替换  -->
+        <!--<if test="code!=null">
+            and code LIKE  '%' #{code} '%'
+        </if>-->
+    </select>
+
+    <select id="getByNameAndPid" resultType="Permission">
+        select * from tbl_permission
+        <where>
+            <if test="name!=null">
+                name = #{0}
+            </if>
+            <if test="pid!=null and pid>0">
+                AND pid=#{1}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectChildNodes" resultType="Permission">
+        <include refid="select"/>FROM tbl_permission
+        <include refid="where"/>
+    </select>
+
+    <select id="getPermissionsByUserId" resultMap="permissionMap">
+		select
+		*
+		from
+		tbl_permission
+		where
+		id in(select
+		permission_id
+		from
+		tbl_role_permission_relation
+		where
+		role_id in(select
+		role_id
+		from
+		tbl_user_role_relation
+		where
+		user_id = #{userId}))
+	</select>
+
+    <!-- sql 只是一个SQL语句一部分  不能够单独执行
+            可以使语句片段得到复用
+            建议将比较复杂的 而且具有通用性 语句片段放在这里。
+            这里可以写SQL语句的任意部分
+        -->
+    <sql id="where">
+		where pid = #{id}
+	</sql>
+    <sql id="select">
+		SELECT
+		*
+	</sql>
+
+</mapper>
