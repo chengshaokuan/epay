@@ -1,9 +1,7 @@
 package com.csk.epay.utils.timeUtil;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Minutes;
+import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -435,35 +433,5 @@ public class JodaTimeUtil {
 
     public static void main (String[] args) {
 
-        Long aLong = JodaTimeUtil.dateTimeToTimestamp("1/2/2019 1:1:1");
-        System.err.println(aLong);
-        DateTime dateTime1 = JodaTimeUtil.strToDateTime("2017-06-29 ");
-        System.err.println(dateTime1);
-        System.err.println(DateTime.now());
-//        System.err.println(JodaTimeUtil.timestampTodateTime(1548153229368L));
-//        System.out.println(JodaTimeUtil.dateToStr(new Date(), "yyyy-MM-dd"));
-//        System.out.println(JodaTimeUtil.dateToStr(DateTime.now().toDate()));
-//        System.out.println(JodaTimeUtil.dateTimeToStr(DateTime.now(), "yyyy-MM-dd"));
-//        System.out.println(new Date() + "|" + DateTime.now() + "|" + new DateTime());
-//        System.err.println(new Date());
-//        System.err.println(JodaTimeUtil.getCurrentTimeStr_YMDHMS() + 222);
-//        System.err.println(JodaTimeUtil.getCurrentTimeStr_YMDHMS());
-//        Thread.sleep(8000);
-//        System.err.println(new Date());
-//        System.err.println(JodaTimeUtil.getCurrentTimeStr_YMDHMS() + 222);
-//        System.err.println(JodaTimeUtil.getCurrentTimeStr_YMDHMS());
-//
-//        System.out.println("系统当前时间： " + JodaTimeUtil.getCurrentTimeStr_HMS());
-//        String dateString = "2017-06-29 14:11:28";
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date2 = sdf.parse(dateString);
-//
-//        System.out.println("String 转 Date" + date2);
-//        int minutesBetween = minutesBetween(date2);
-//        System.out.println(minutesBetween + " 分钟 ");
-//        System.out.println(minutesBetween - 15 + " 分钟 ");
-//        System.out.println("是否小于15分钟： ");
-//        System.out.println(minutesBetween <= 15);
-//        System.out.println("时间戳：" + timestamp());
     }
 }

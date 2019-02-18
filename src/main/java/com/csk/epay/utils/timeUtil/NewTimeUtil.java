@@ -18,11 +18,6 @@ import static java.time.temporal.TemporalAdjusters.*;
  **/
 public class NewTimeUtil {
 
-    public static void main (String[] args) {
-        System.out.println(LocalDateTime.now());
-        LocalDateTime localDate = LocalDate.now().atTime(1,1,1,900000000);
-        System.out.println(localDate);
-    }
 
     //获取默认时间格式: yyyy-MM-dd HH:mm:ss
     private static final DateTimeFormatter DEFAULT_DATETIME_FORMATTER = TimeFormat.LONG_DATE_PATTERN_LINE.formatter;
@@ -83,8 +78,19 @@ public class NewTimeUtil {
      * @Author: Mr.Cheng
      * @Date: 11:13 2019/1/24
      */
-    public static String getCurrentDatetime () {
+    public static String getCurrentDatetimeStr () {
         return DEFAULT_DATETIME_FORMATTER.format(LocalDateTime.now());
+    }
+
+    /**
+     * @Description: 获取指定格式的当前时间:yyyy-MM-dd HH:mm:ss
+     * @param:
+     * @return: java.lang.String
+     * @Author: Mr.Cheng
+     * @Date: 11:13 2019/1/24
+     */
+    public static LocalDateTime getCurrentDatetime () {
+        return LocalDateTime.parse(getCurrentDatetimeStr(),DEFAULT_DATETIME_FORMATTER);
     }
 
     /**
@@ -97,9 +103,6 @@ public class NewTimeUtil {
     public static String getCurrentDatetime (TimeFormat format) {
         return format.formatter.format(LocalDateTime.now());
     }
-
-
-
 
     /**
      * @Description: 获取时间间隔，并格式化为XXXX年XX月XX日
@@ -323,7 +326,6 @@ public class NewTimeUtil {
     public static LocalDate getNextOrSame (LocalDate date, DayOfWeek dayOfWeek) {
         return date.with(nextOrSame(dayOfWeek));
     }
-
 
     /**
      * @Description: 时间格式

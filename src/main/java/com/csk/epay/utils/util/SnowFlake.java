@@ -1,10 +1,5 @@
 package com.csk.epay.utils.util;
 
-import com.csk.epay.algorithm.ConsistentHashUtil;
-import org.junit.Test;
-
-import java.util.*;
-
 
 /**
  * @program: cheng
@@ -14,7 +9,13 @@ import java.util.*;
  **/
 public class SnowFlake {
 
-    //起始的时间戳,这个是随意的,2019-01-18 11:09:54
+    /**
+     * &与运算符，两个操作数中位都为1，结果才为1，否则结果为0
+     * |或运算符，两个位只要有一个为1，那么结果就是1，否则就为0
+     * ^异或运算符,两个操作数的位中，相同则结果为0，不同则结果为1
+     */
+
+    //起始的时间戳,这个是随意的1288834974657L
     private final static long START_STMP = 1288834974657L;
 
     /**
@@ -119,14 +120,9 @@ public class SnowFlake {
     }
 
     public static void main (String[] args) {
-        SnowFlake snowFlake = new SnowFlake(2, 3);
-        List<Long> list = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
-            String s = String.valueOf(snowFlake.nextId());
-            System.out.println(s);
-            int fnvHash1 = ConsistentHashUtil.FNVHash1(s);
-//            System.err.println(fnvHash1);
-            list.add(snowFlake.nextId());
-        }
+
+        Long sequence = 0L;
+        SnowFlake snowFlake = new SnowFlake(0, 0);
+        System.out.println(sequence);
     }
 }
