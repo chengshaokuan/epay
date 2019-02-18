@@ -197,7 +197,6 @@ public class mybatisTest {
                 role.setCreateTime(TimeUtil.getNowTimeNormalString());
                 list.add(role);
             }
-            mapper.save(list);
             close(sqlSession1);
         }
     }
@@ -230,7 +229,7 @@ public class mybatisTest {
             user.setId(String.valueOf(nextId));
             user.setName(ChineseName.getChineseName());
             user.setPassword("随机产生:" + RandomChar.getRandomChar(5));
-            user.setCreateTime(NewTimeUtil.getCurrentDatetime());
+            user.setCreateTime(NewTimeUtil.getCurrentDatetimeStr());
 //                CustomerContextHolder.setCustomerType(CustomerContextHolder.getShardingDBKeyByUserId(DataSourceType.dataSource, user.getId()));
 //                user.setSharding_table_index(CustomerContextHolder.getShardingDBTableIndexByUserId(user.getId()));
             mapper.save(Integer.parseInt(String.valueOf(nextId % 5)), user);
