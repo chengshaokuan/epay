@@ -26,15 +26,6 @@ public interface PermissionDao {
     void deleteById (Integer id);
 
     /**
-     * @Description: 根据id获取许可对象
-     * @param: id
-     * @return: com.csk.epay.domain.Permission
-     * @Author: Mr.Cheng
-     * @Date: 17:38 2019/1/7
-     */
-    Permission getById (Integer id);
-
-    /**
      * @Description: 修改许可
      * @param: permission
      * @return: void
@@ -44,6 +35,15 @@ public interface PermissionDao {
     void update (Permission permission);
 
     /**
+     * @Description: 根据id获取许可对象
+     * @param: id
+     * @return: com.csk.epay.domain.Permission
+     * @Author: Mr.Cheng
+     * @Date: 17:38 2019/1/7
+     */
+    Permission getById (Integer id);
+
+    /**
      * @Description: 获取所有许可
      * @param:
      * @return: java.util.List<com.csk.epay.domain.Permission>
@@ -51,7 +51,6 @@ public interface PermissionDao {
      * @Date: 17:38 2019/1/7
      */
     List<Permission> getAll ();
-
 
     /**
      * @Description: 根据许可代码获取许可对象

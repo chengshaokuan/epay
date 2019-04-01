@@ -2,14 +2,9 @@ package com.csk.epay.dao;
 
 import com.csk.epay.domain.Permission;
 import com.csk.epay.domain.Role;
-import com.csk.epay.domain.User;
-import com.csk.epay.utils.timeUtil.JodaTimeUtil;
-import com.csk.epay.utils.timeUtil.NewTimeUtil;
 import com.csk.epay.utils.timeUtil.TimeUtil;
 import com.csk.epay.utils.util.ChineseName;
 import com.csk.epay.utils.util.RandomChar;
-import com.csk.epay.utils.util.SnowFlake;
-import com.csk.epay.utils.util.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -43,34 +38,32 @@ public class mybatisTest {
             //1.注册驱动
             Class.forName("com.mysql.jdbc.Driver");
             //2.获取数据库连接
-            String url = "jdbc:mysql://localhost:3306/epay";
+            String url = "jdbc:mysql://localhost:3306/db";
             String user = "root";
             String password = "root";
             conn = DriverManager.getConnection(url, user, password);
             //关闭自动提交，开启事务
             conn.setAutoCommit(false);
             //3.定义SQL语句框架
-            String sql = "select * from tbl_permission where code = ${code} for UPDATE ";
+            String sql = "select * from TABLE_NAME where id = ? for UPDATE ";
             //4.进行SQL语句预编译
             ps = conn.prepareStatement(sql);
             //5.进行赋值
-            ps.setString(1, "0000006");
+            ps.setInt(1, 6);
             //6.执行SQL
             rs = ps.executeQuery();
             while (rs.next()) {
-                String code = rs.getString("code");
+                String code = rs.getString("number");
                 System.out.println(code + " ");
             }
             //提交事务
             conn.commit();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             try {
                 //事务的回滚
                 conn.rollback();
             } catch (SQLException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
         } finally {
@@ -79,7 +72,6 @@ public class mybatisTest {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -87,7 +79,6 @@ public class mybatisTest {
                 try {
                     ps.close();
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -95,7 +86,6 @@ public class mybatisTest {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -107,14 +97,11 @@ public class mybatisTest {
         String resourceConfig = "mybatis-config.xml";
         ArrayList<SqlSession> list = new ArrayList<>();
         try {
-
             InputStream resourceAsStream = Resources.getResourceAsStream(resourceConfig);
 //          InputStream resourceAsStream = mybatisTest.class.getClassLoader().getResourceAsStream(resource);
             SqlSessionFactory build = new SqlSessionFactoryBuilder().build(resourceAsStream);
             SqlSession sqlSession = build.openSession();
-            SqlSession sqlSession1 = build.openSession();
             list.add(sqlSession);
-            list.add(sqlSession1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,9 +119,7 @@ public class mybatisTest {
 
         List<SqlSession> sqlSession = this.getSqlSession();
         SqlSession sqlSession1 = sqlSession.get(0);
-        SqlSession sqlSession2 = sqlSession.get(1);
         PermissionDao permissionDao1 = sqlSession1.getMapper(PermissionDao.class);
-        PermissionDao permissionDao2 = sqlSession2.getMapper(PermissionDao.class);
 //        List<Object> list = sqlSession2.selectList("com.csk.epay.dao.PermissionDao.getAll");
 
         /**
@@ -147,8 +132,6 @@ public class mybatisTest {
         Permission byId = permissionDao1.getByCode("(select code from tbl_permission where code ='姓名6')");
         sqlSession1.close();
         sqlSession1.clearCache();
-        Permission byId1 = permissionDao2.getByCode("0000003");
-        System.err.println(byId1);
 //        list.stream().forEach(System.out::println);
            /* Permission permission = new Permission();
             permission.setId(2);
@@ -178,79 +161,25 @@ public class mybatisTest {
 //            List<Permission> aaaaaaa = permissionDao.getByCode1("aaaaaaa");
 //            aaaaaaa.stream().forEach(System.out::println);
 
-        close(sqlSession2);
     }
 
     @Test
     public void RoleDao () {
-        for (int i = 1; i <= 100; i++) {
-            List<SqlSession> sqlSession = this.getSqlSession();
-            SqlSession sqlSession1 = sqlSession.get(0);
-            RoleDao mapper = sqlSession1.getMapper(RoleDao.class);
-            ArrayList<Role> list = new ArrayList<>();
-            for (int j = 0; j < 100000; j++) {
 
-                Role role = new Role();
-                role.setCode("00000" + j);
-                role.setName(ChineseName.getChineseName());
-                role.setRemark("随机产生:" + RandomChar.getRandomChar(5));
-                role.setCreateTime(TimeUtil.getNowTimeNormalString());
-                list.add(role);
-            }
-            close(sqlSession1);
-        }
-    }
-
-    @Test
-    public void RoleDaoTest () {
         List<SqlSession> sqlSession = this.getSqlSession();
         SqlSession sqlSession1 = sqlSession.get(0);
         RoleDao mapper = sqlSession1.getMapper(RoleDao.class);
-        long timestamp = JodaTimeUtil.timestamp();
-        Role byId = mapper.getById(5105331);
-        long timestamp1 = JodaTimeUtil.timestamp();
-        System.out.println(timestamp1 - timestamp);
-        System.out.println(byId);
-    }
 
+        Role role = new Role();
+        role.setCode("00000");
+        role.setName(ChineseName.getChineseName());
+        role.setRemark("随机产生:" + RandomChar.getRandomChar(5));
+        role.setCreateTime(TimeUtil.getNowTimeNormalString());
 
-    @Test
-    public void UserDaoTest () {
-        SnowFlake snowFlake = new SnowFlake(0, 0);
-        List<SqlSession> sqlSession = this.getSqlSession();
-        SqlSession sqlSession1 = sqlSession.get(0);
-        UserDao mapper = sqlSession1.getMapper(UserDao.class);
-        for (int j = 0; j < 100; j++) {
-            User user = new User();
-//            int abs = Math.abs(UUID.randomUUID().hashCode());
-//            user.setId(String.valueOf(abs));
-            long nextId = snowFlake.nextId();
-            System.out.println(nextId);
-            user.setId(String.valueOf(nextId));
-            user.setName(ChineseName.getChineseName());
-            user.setPassword("随机产生:" + RandomChar.getRandomChar(5));
-            user.setCreateTime(NewTimeUtil.getCurrentDatetimeStr());
-//                CustomerContextHolder.setCustomerType(CustomerContextHolder.getShardingDBKeyByUserId(DataSourceType.dataSource, user.getId()));
-//                user.setSharding_table_index(CustomerContextHolder.getShardingDBTableIndexByUserId(user.getId()));
-            mapper.save(Integer.parseInt(String.valueOf(nextId % 5)), user);
-        }
-//        mapper.deleteById(2,174850391);
-//        List<User> user = mapper.getUser(2, 174850391);
-//        user.forEach(System.out::println);
+        mapper.save(role);
         close(sqlSession1);
+        System.out.println(role.getId());
 
-    }
-
-
-    @Test
-    public void test1 () {
-
-        new ThreadPoolUtil();
-        SnowFlake snowFlake = new SnowFlake(2, 3);
-        List<SqlSession> sqlSession = this.getSqlSession();
-        SqlSession sqlSession1 = sqlSession.get(0);
-        UserDao mapper = sqlSession1.getMapper(UserDao.class);
-        close(sqlSession1);
     }
 
 }

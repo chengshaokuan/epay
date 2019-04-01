@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.csk.epay.dao.OperationLogDao">
+
     <resultMap id="OperationLog" type="com.csk.epay.domain.OperationLog">
         <id property="id" column="id"/>
         <result property="ip" column="ip"/>
@@ -13,13 +14,14 @@
         <result property="type" column="type"/>
         <result property="node" column="node"/>
     </resultMap>
+
     <insert id="save">
-        insert into tbl_operationlog (
-        ip,operator,time,module,type,node
-        ) values (
-        #{ip},#{operator}, #{time}, #{module}, #{type},#{node}
-        )
+        insert into tbl_operationlog (ip,operator,time,module,type,node) values (
+        #{ip},#{operator}, #{time}, #{module}, #{type},#{node})
         /*返回自增主键*/
+        /*useGeneratedKeys=true表示使用数据库自动增长的主键，
+        keyColumn用于指定数据库table中的主键，keyProperty用于指定传入对象的成员变量。
+        这里，由于在数据库表中已经指定了主键，固可省略keyColumn属性*/
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select @@identity
         </selectKey>
@@ -29,7 +31,7 @@
 		delete from tbl_operationlog where id = #{id}
 	</delete>
 
-    <select id="selectLog" resultType="OperationLog">
+    <select id="selectLog" resultType="operationLog">
         select * from tbl_operationlog WHERE 1=1
         <if test="startTime!=null and startTime!=''">
             and expireTime &gt;=#{startTime}
