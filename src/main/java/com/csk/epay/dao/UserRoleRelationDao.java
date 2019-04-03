@@ -1,6 +1,7 @@
 package com.csk.epay.dao;
 
 import com.csk.epay.domain.Role;
+import com.csk.epay.domain.Role;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.csk.epay.dao.annotation;
 
 import com.csk.epay.domain.Permission;
+import com.csk.epay.domain.Permission;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -61,9 +62,11 @@ public interface PermissionDao {
     Permission getById (Integer id);
 
     /**
-     * 修改许可
-     *
-     * @param permission
+     * @Description: 修改许可
+     * @param: permission
+     * @return: void
+     * @Author: Mr.Cheng
+     * @Date: 18:34 2019/4/1
      */
     @Update("update tbl_permission set" +
             "tcode = #{code}," +
@@ -76,9 +79,11 @@ public interface PermissionDao {
     void update (Permission permission);
 
     /**
-     * 获取所有许可
-     *
-     * @return
+     * @Description:  获取所有许可
+     * @param:
+     * @return: java.util.List<com.csk.epay.domain.Permission>
+     * @Author: Mr.Cheng
+     * @Date: 18:34 2019/4/1
      */
     @Select("select * from tbl_permission order by order_no")
     List<Permission> getAll ();

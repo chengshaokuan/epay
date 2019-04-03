@@ -2,6 +2,8 @@ package com.csk.epay.dao.annotation;
 
 import com.csk.epay.domain.User;
 import com.csk.epay.vo.UserCondition;
+import com.csk.epay.domain.User;
+import com.csk.epay.vo.UserCondition;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -72,7 +74,7 @@ public interface UserDao {
      * @Date: 16:01 2019/1/7
      */
     @Select("select * from tbl_user where id = #{id}")
-    //如果其他查询语句，可以直接使用@ResultMap("a")来调用这个@Results
+    //如果其他查询语句，可以直接使用@ResultMap("】a")来调用这个@Results
     @Results(id = "a", value = {
             @Result(column = "accountNo", property = "accountNo"),
             @Result(column = "id", property = "id")
@@ -89,4 +91,6 @@ public interface UserDao {
      */
     @Select("select * from tbl_user where accountNo = #{0} and password = #{1}")
     User getByAccountNoAndPassword (String accountNo, String password);
+
+
 }

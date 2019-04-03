@@ -1,6 +1,7 @@
 package com.csk.epay.dao.annotation;
 
 import com.csk.epay.domain.Role;
+import com.csk.epay.domain.Role;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;

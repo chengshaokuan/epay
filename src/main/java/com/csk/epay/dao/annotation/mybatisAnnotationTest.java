@@ -1,6 +1,11 @@
 package com.csk.epay.dao.annotation;
 
-import com.csk.epay.domain.OperationLog;
+import com.csk.epay.domain.Permission;
+import com.csk.epay.domain.Role;
+import com.csk.epay.domain.User;
+import com.csk.epay.utils.timeUtil.TimeUtil;
+import com.csk.epay.vo.LogCondition;
+import com.csk.epay.vo.UserCondition;
 import com.csk.epay.domain.Permission;
 import com.csk.epay.domain.Role;
 import com.csk.epay.domain.User;
@@ -31,8 +36,14 @@ public class mybatisAnnotationTest {
     public SqlSession getSqlSession () {
         SqlSession sqlSession = null;
         try {
-            InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-annotationconfig.xml");
+            /*
+             * 1.加载mybatis的配置文件，初始化mybatis，创建出SqlSessionFactory，是创建SqlSession的工厂
+             * 这里只是为了演示的需要，SqlSessionFactory临时创建出来，在实际的使用中，SqlSessionFactory只需要创建一次，当作单例来使用
+             *
+             * 从SqlSession工厂 SqlSessionFactory中创建一个SqlSession，进行数据库操作
+             */
 //          InputStream resourceAsStream = mybatisTest.class.getClassLoader().getResourceAsStream(resource);
+            InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-annotationconfig.xml");
             SqlSessionFactory build = new SqlSessionFactoryBuilder().build(resourceAsStream);
             sqlSession = build.openSession();
         } catch (IOException e) {
@@ -62,15 +73,13 @@ public class mybatisAnnotationTest {
         PermissionDao permissionDao = sqlSession.getMapper(PermissionDao.class);
         List<Permission> lists = new ArrayList<>();
         Permission permission = null;
-        for (int i = 0; i < 10; i++) {
-            permission = new Permission();
-            permission.setCode("000000" + i);
-            permission.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            permission.setName("姓名" + i);
-            permission.setModuleUrl("http://www.**" + i + ".com");
-            permission.setPid(100 + i);
-            lists.add(permission);
-        }
+        permission = new Permission();
+        permission.setCode("000000" );
+        permission.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        permission.setName("姓名");
+        permission.setModuleUrl("http://www.**.com");
+        permission.setPid(100 );
+        lists.add(permission);
 //            permission.setChildNodes(lists);
 //        int save = permissionDao.saveToAll(lists);
 ////        lists.stream().forEach(s -> System.err.println(s.getId()));
@@ -96,10 +105,11 @@ public class mybatisAnnotationTest {
         role.setRemark("就是普通一号");
         role.setCreateTime(TimeUtil.getNowTimeNormalString());
         mapper.save(role);
-        mapper.deleteById(18);
+
         System.out.println(role.getId());
         close(sqlSession);
     }
+
     @Test
     public void UserDao () {
         SqlSession sqlSession = this.getSqlSession();
@@ -121,7 +131,7 @@ public class mybatisAnnotationTest {
     }
 
     @Test
-    public void LogDao(){
+    public void LogDao () {
         SqlSession sqlSession = this.getSqlSession();
         OperationLogDao mapper = sqlSession.getMapper(OperationLogDao.class);
         LogCondition logCondition = new LogCondition();

@@ -2,7 +2,6 @@ package com.csk.epay.dao;
 
 import com.csk.epay.domain.User;
 import com.csk.epay.vo.UserCondition;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,13 +10,13 @@ public interface UserDao {
 
     /**
      * @Description: 保存用户
-     * @param: tableNum
      * @param: user
      * @return: void
      * @Author: Mr.Cheng
-     * @Date: 14:40 2019/4/1
+     * @Date: 10:11 2019/4/2
      */
-    void save (@Param("tableNum") int tableNum, @Param("user") User user);
+//    void save (@Param("tableNum") int tableNum, @Param("user") User user);
+    void save (User user);
 
     /**
      * @Description: 删除用户
@@ -27,7 +26,8 @@ public interface UserDao {
      * @Author: Mr.Cheng
      * @Date: 14:44 2019/4/1
      */
-    void deleteById (@Param("table") int table, @Param("id") Integer id);
+//    void deleteById (@Param("table") int table, @Param("id") Integer id);
+    void deleteById (Integer id);
 
     /**
      * @Description: 获取总记录条数
@@ -73,5 +73,5 @@ public interface UserDao {
      * @Author: Mr.Cheng
      * @Date: 17:37 2019/4/1
      */
-    User getByAccountNo(List<String> accoutNo);
+    User getByAccountNo (List<String> accoutNo);
 }

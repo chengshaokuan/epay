@@ -6,13 +6,14 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -24,8 +25,10 @@ import javax.sql.DataSource;
  **/
 @Configuration //表示配置文件类
 //@ComponentScan("com.csk.epay.service.impl") //扫描的包 ，代替 <context:component-scan base-package=""/>
+
 //添加配置文件,使用@Value("${key的值}")
 @PropertySource(value = {"classpath:jdbc.properties",}, ignoreResourceNotFound = true)
+
 //@ImportResource(value = {"classpath:/spring-mvc.xml"})   // 引入配置文件
 //指导需要注入数据原的包路径
 @MapperScan(basePackages = {"classpath:com/csk/epay/dao/mapper/*.xml"}, sqlSessionFactoryRef = "sqlSessionFactory")

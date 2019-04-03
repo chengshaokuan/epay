@@ -18,16 +18,19 @@ public interface OperationLogDao {
 	@Delete("delete from tbl_operationlog where id= #{id}")
 	void deleteById (Integer id);
 
-	@Select("<script>select  * from tbl_operationlog <where> " +
+	@Select("<script>" +
+			"select  * from tbl_operationlog <where> " +
 			"<if test=\"startTime!=null and startTime!=''\">" +
 			"and expireTime =#{startTime}</if>" +
 			"<if test=\"endTime !=null and endTime !=''\">" +
 			"and expireTime =#{endTime}</if>" +
-			"limit #{pageNo},#{pageSize}</where></script>")
+			"limit #{pageNo},#{pageSize}</where>" +
+			"</script>")
 	List<OperationLog> selectLog (LogCondition logCondition);
 
 
-	@Select("<script>select count(*) from tbl_operationlog where 1=1" +
+	@Select("<script>" +
+			"select count(*) from tbl_operationlog where 1=1" +
 			"<if test=\"startTime!=null and startTime!=''\">" +
 			"and #{startTime}>time</if>" +
 			"<if test=\"endTime !=null and endTime !=''\">" +
